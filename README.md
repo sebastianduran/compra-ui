@@ -1,24 +1,26 @@
 # compra-ui
 
-## Project setup
+## Descripción 
+
+Aplicación que consumo de la API de compra, para probarla en local
+
+## Prerequisitos 
+- Node (probado con la version v4.17.1)
+- Vue.js (probado con la version @vue/cli 5.0.4)
+
+## Pasos
+Clonar el repositorio
+
 ```
 npm install
 ```
-
-### Compiles and hot-reloads for development
+Correr el servidor
 ```
 npm run serve
 ```
 
-### Compiles and minifies for production
-```
-npm run build
-```
+## Probar
+Probar en http://localhost:8080
 
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+## Version desplegada
+[https://heroic-mochi-da971d.netlify.app/](https://heroic-mochi-da971d.netlify.app/)
