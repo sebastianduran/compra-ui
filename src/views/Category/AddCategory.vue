@@ -53,7 +53,7 @@ export default {
                 imageUrl: this.imageUrl
             };
 
-            const baseUrl = "https://app-cocompra.herokuapp.com";
+            const baseUrl = "https://limitless-lake-55070.herokuapp.com";
 
             axios({
                 method: 'POST',
