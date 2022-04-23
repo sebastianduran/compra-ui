@@ -2,9 +2,9 @@
   <div class="container">
     <div class="row">
       <div class="col-12 text-center">
-        <h3 class="pt-3">Our Categories</h3>
+        <h3 class="pt-3">Categorias</h3>
         <router-link :to="{ name: 'AddCategory' }">
-          <button class="btn" style="float:right">Add Category</button>
+          <button class="btn" style="float:right">Agregar categoria</button>
         </router-link>
       </div>
     </div>
@@ -20,27 +20,27 @@
   </div>
 </template>
 <script>
-const axios = require("axios");
+//const axios = require("axios");
 import CategoryBox from "../../components/Category/CategoryBox.vue";
 export default {
-  name: "MyCategory",
+  name: "Category",
+  props: ["categories"],
   components: { CategoryBox },
   data() {
     return {
-      baseURL: "https://limitless-lake-55070.herokuapp.com",
-      categories: [],
+      baseURL: "https://cocompra-app-1.herokuapp.com",
     };
   },
   methods: {
-    async getCategories() {
-      await axios
-        .get(`${this.baseURL}/category/`)
-        .then((res) => (this.categories = res.data))
-        .catch((err) => console.log(err));
-    },
+    // async getCategories() {
+    //   await axios
+    //     .get(`${this.baseURL}/category/list`)
+    //     .then((res) => (this.categories = res.data))
+    //     .catch((err) => console.log(err));
+    // },
   },
   mounted() {
-    this.getCategories();
+    //this.getCategories();
   },
 };
 </script>

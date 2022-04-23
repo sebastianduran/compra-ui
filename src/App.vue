@@ -1,10 +1,49 @@
 <template>
+  <Navbar/>
   <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
   </nav>
-  <router-view/>
+  <router-view v-if="categories && products"
+  :baseURL = "baseURL"
+  :categories = "categories"
+  :products = "products"
+  @fetchData = "fetchData"
+  >  
+  </router-view>
 </template>
+
+<script>
+import Navbar from './components/Navbar.vue'
+import axios from 'axios';
+
+export default {
+  components: { Navbar },
+  data() {
+    return {
+      baseURL: "https://cocompra-app-1.herokuapp.com/",
+      products: [],
+      categories: []
+    }
+  },
+  methods:{
+    async fetchData(){
+      await axios.get(this.baseURL + "category/list")
+      .then( res => {
+        this.categories = res.data
+      }).catch( err => console.log('err',err));
+
+      // api de llamada para obtener todos los productos, como mirar la dirección en el backend
+      await axios.get(this.baseURL + "product/list")
+      .then( res => {
+        this.products = res.data
+      }).catch( err => console.log('err',err));
+    }
+  },
+  mounted(){
+    this.fetchData();
+  }
+}
+</script>
+
 
 <style>
 #app {

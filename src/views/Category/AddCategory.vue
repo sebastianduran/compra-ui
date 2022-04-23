@@ -34,7 +34,7 @@
 <script>
 
 const axios = require("axios");
-const sweetalert = require("sweet-alert");
+const sweetalert = require("sweetalert");
 
 export default {
     
@@ -47,18 +47,18 @@ export default {
     },
     methods: {
         addCategory(){
-            const newCategoty = {
+            const newCategory = {
                 categoryName: this.categoryName,
                 description: this.description,
                 imageUrl: this.imageUrl
             };
 
-            const baseUrl = "https://limitless-lake-55070.herokuapp.com";
+            const baseUrl = "https://cocompra-app-1.herokuapp.com";
 
             axios({
                 method: 'POST',
                 url: `${baseUrl}/category/create`,
-                data: JSON.stringify(newCategoty),
+                data: JSON.stringify(newCategory),
                 headers: {
                     'Content-Type': 'application/json'
                 }
