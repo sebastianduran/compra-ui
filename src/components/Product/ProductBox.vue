@@ -6,9 +6,14 @@
                 alt="Card image cap product">
         </div>
         <div class="card-body">
+            <router-link :to="{name: 'ShowDetails', params: {id : product.id}}">
             <h5 class="card-title">{{ product.name }}</h5>
+            </router-link>
             <p class="card-text">
                 {{ product.description.substring(0,65) }} ...
+            </p>
+            <p class="card-text">
+               Disponibles {{ product.stock }} 
             </p>
             <router-link :to="{name: 'EditProduct', params: {id: product.id}}"
             v-show="$route.name == 'Product'">

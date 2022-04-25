@@ -7,6 +7,12 @@ import Category from '../views/Category/Category.vue'
 import Product from '../views/Product/Product.vue'
 import EditCategory from '../views/Category/EditCategory.vue'
 import EditProduct from '../views/Product/EditProduct.vue'
+import ShowDetails from '../views/Product/ShowDetails.vue'
+import SignUp from '../views/SignUp.vue'
+import SignIn from '../views/SignIn.vue'
+import Cart from '../views/Cart.vue'
+import Checkout from '../views/Checkout.vue'
+import Success from '../views/payment/Success.vue'
 
 const routes = [
   {
@@ -59,7 +65,39 @@ const routes = [
     path: '/admin/product/:id',
     name: 'EditProduct',
     component: EditProduct
-  }
+  },
+
+  // show details of product
+  {
+    path: '/product/show/:id',
+    name: 'ShowDetails',
+    component: ShowDetails,
+  },
+  {
+    path: '/signup',
+    name: 'SignUp',
+    component: SignUp,
+  },
+  {
+    path: '/signin',
+    name: 'SignIn',
+    component: SignIn,
+  },
+  {
+    path: '/cart',
+    name: 'Cart',
+    component: Cart,
+  },
+  {
+    path: '/checkout',
+    name: 'Checkout',
+    component: Checkout,
+  },
+  {
+    path: '/payment/success',
+    name: 'PaymentSuccess',
+    component: Success,
+  },
 ]
 
 const router = createRouter({

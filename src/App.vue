@@ -1,7 +1,5 @@
 <template>
   <Navbar/>
-  <nav>
-  </nav>
   <router-view v-if="categories && products"
   :baseURL = "baseURL"
   :categories = "categories"
@@ -36,9 +34,23 @@ export default {
       .then( res => {
         this.products = res.data
       }).catch( err => console.log('err',err));
-    }
+      // fetch cart item if token is present i.e logged in
+      if (this.token) {
+        axios
+          .get(`${this.baseURL}cart/?token=${this.token}`)
+          .then((res) => {
+            const result = res.data;
+            this.cartCount = result.cartItems.length;
+          })
+          .catch((err) => console.log('err', err));
+      }
+    },
+    resetCartCount() {
+      this.cartCount = 0;
+    },
   },
   mounted(){
+    this.token = localStorage.getItem('token');
     this.fetchData();
   }
 }

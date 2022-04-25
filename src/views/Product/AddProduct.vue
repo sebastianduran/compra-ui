@@ -32,6 +32,10 @@
                         <label>Precio</label>
                         <input type="number" v-model="price" class="form-control" >
                     </div>
+                    <div class="form-group">
+                        <label>Disponibles</label>
+                        <input type="number" v-model="stock" class="form-control" >
+                    </div>
                     <button type="button" class="btn btn-primary" @click="addProduct">Agregar</button>
                 </form>
             </div>
@@ -53,7 +57,8 @@
                 name: null,
                 description: null,
                 imageURL: null,
-                price: null
+                price: null,
+                stock: null
             }
         },
         methods: {
@@ -63,13 +68,14 @@
                     description: this.description,
                     name: this.name,
                     imageURL: this.imageURL,
-                    price: this.price
+                    price: this.price,
+                    stock: this.stock
                 };
                 axios.post(this.baseURL+"product/add", newProduct)
                 .then(() => {
                     this.$router.push({name: 'Product'});
                     swal({
-                        text: "Product added",
+                        text: "Producto agregado",
                         icon: "success"
                     })
                 }).catch((err)=> {

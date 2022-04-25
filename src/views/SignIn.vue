@@ -1,0 +1,63 @@
+<template>
+  <div class="conatiner">
+    <div class="row">
+      <div class="col-12 justify-content-center d-flex flex-row pt-5">
+        <div id="signin" class="flext-item border">
+          <h2 class="pt-4">Inicia sesión</h2>
+          <form @submit="signin" class="form-group pt-4 pl-4 pr-4">
+            <div class="form-group">
+              <label>Email </label>
+              <input v-model="email" type="email" class="form-control" />
+            </div>
+            <div class="form-group">
+              <label>Contraseña </label>
+              <input v-model="password" type="password" class="form-control" />
+            </div>
+            <button class="btn btn-primary mt-2 py-0">Ingresar</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+<script>
+import axios from 'axios';
+import swal from 'sweetalert';
+export default {
+  props: ['baseURL'],
+  data() {
+    return {
+      email: null,
+      password: null,
+    };
+  },
+  methods: {
+    async signin(e) {
+      e.preventDefault();
+      const body = {
+        email: this.email,
+        password: this.password,
+      };
+      await axios
+        .post(`${this.baseURL}user/signin`, body)
+        .then((res) => {
+          localStorage.setItem('token', res.data.token);
+          swal({
+            text: 'Inició sesión',
+            icon: 'success',
+          });
+          this.$emit('fetchData');
+          this.$router.push({ name: 'home' });
+        })
+        .catch((err) => console.log('err', err));
+    },
+  },
+};
+</script>
+<style scoped>
+@media screen and (min-width: 992px) {
+  #signin {
+    width: 40%;
+  }
+}
+</style>

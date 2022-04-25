@@ -53,7 +53,7 @@
                     this.$emit("fetchData");
                     this.$router.push({name: 'Category'})
                     swal({
-                        text: "La ategoria ha sido actualizada",
+                        text: "La categoria actualizada",
                         icon: "success"
                     })
                 }).catch(err => console.log('err', err));

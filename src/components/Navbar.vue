@@ -1,6 +1,5 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <!-- Navbar content -->
     <!--    Logo-->
     <router-link class="navbar-brand" :to="{ name: 'home' }">
       <img id="logo" src="../assets/logo.png" />
@@ -48,12 +47,59 @@
         </div>
       </form>-->
       <router-link :to="{ name: 'AdminView' }"> Admin </router-link>
+
+            <router-link
+              v-if="!token"
+              class="dropdown-item"
+              :to="{ name: 'SignUp' }"
+              >Nuevo Usuario
+            </router-link>
+            <router-link
+              v-if="!token"
+              class="dropdown-item"
+              :to="{ name: 'SignIn' }"
+              >Ingresar
+            </router-link>
+            <a class="dropdown-item" v-if="token" href="#" @click="signout"
+              >Salir
+            </a>
+
+        <div class="nav-item">
+          <div id="cart" style="position:relative">
+            <span id="nav-cart-count">{{ cartCount }}</span>
+            <router-link class="text-light" :to="{ name: 'Cart' }">
+              <i class="fa fa-shopping-cart" style="font-size:36px"></i>
+            </router-link>
+          </div>
+        </div>
     </div>
   </nav>
 </template>
 <script>
+import swal from "sweetalert";
 export default {
   name: "Navbar",
+  props: ["cartCount"],
+  data() {
+    return {
+      token: null,
+    };
+  },
+  methods: {
+    signout() {
+      localStorage.removeItem("token");
+      this.token = null;
+      swal({
+        text: "Sesión cerrada, vuelve pronto",
+        icon: "success",
+      });
+      this.$emit("resetCartCount");
+      this.$router.push({ name: "home" });
+    },
+  },
+  mounted() {
+    this.token = localStorage.getItem("token");
+  },
 };
 </script>
 <style scoped>

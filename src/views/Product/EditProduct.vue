@@ -34,6 +34,10 @@
                         <label>Precio</label>
                         <input type="number" class="form-control" v-model="product.price" required/>
                     </div>
+                    <div class="form-group">
+                        <label>Disponibles</label>
+                        <input type="number" class="form-control" v-model="product.stock" required/>
+                    </div>
                     <button type="button" class="btn btn-primary"
                             @click="editProduct" >Editar</button>
                 </form>
@@ -62,7 +66,7 @@
                         this.$emit("fetchData");
                         this.$router.push({name: 'Product'})
                         swal({
-                            text: "product has been updated successfully",
+                            text: "Producto actualizado",
                             icon: "success"
                         })
                     }).catch(err => console.log('err', err));
