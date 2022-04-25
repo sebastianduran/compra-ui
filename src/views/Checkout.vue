@@ -51,8 +51,8 @@ export default {
           swal({
                         text: "Producto agregado",
                         icon: "success"
-                    })
-            this.$router.push({ name: 'Success' });
+                    });
+            this.$router.push({ name: 'PaymentSuccess' });
         })
         .catch((err) => console.log(err));
         

@@ -8,19 +8,21 @@
             </div>
         </div>
         <div class="row">
-            <!-- Muestra todos los produntos en el componente product box
+            <!-- Muestra todos los produntos en el componente product box-->
             <div v-for="product of products" :key="product.id" class="col-md-6 col-xl-4 col-12 pt-3 d-flex">
                 <ProductBox :product="product"/>
-            </div>-->
+            </div>
         </div>
     </div>
 </template>
 <script>
 import ProductBox from "../../components/Product/ProductBox.vue"
+import axios from 'axios';
 export default {
   data() {
     return {
       orderItems: [],
+      cartItems: [],
       token: null,
       totalCost: 0,
     };
@@ -37,10 +39,20 @@ export default {
           })
           .catch((err) => console.log('err', err));
       },
+      resetCart(){
+        axios
+          .delete(`${this.baseURL}cart/resetcart?token=${this.token}`)
+          .then((res) => {
+            const result = res.data;
+            this.cartItems = result.cartItems;
+          })
+          .catch((err) => console.log('err', err));
+      }
     },
     mounted() {
       this.token = localStorage.getItem('token');
-      this.listCartItems();
+      //this.listOrders();
+      this.resetCart();
     },
 }
 </script>
