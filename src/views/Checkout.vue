@@ -2,7 +2,6 @@
   <div class="div_class">
     <h3>... pago ...</h3>
 
-
     <button class="btn btn-primary" @click="goToCheckout">Realizar pago</button>
   </div>
 </template>
@@ -20,7 +19,7 @@ export default {
     };
   },
   name: 'Checkout',
-  props: ['baseURL'],
+  props: ['baseURL','products'],
   methods: {
     getAllItems() {
       axios
@@ -28,39 +27,44 @@ export default {
         .then((response) => {
           if (response.status == 200) {
             let products = response.data;
+            
             for (let i = 0; i < products.cartItems.length; i++) {
               this.checkoutBodyArray.push({
-                price: products.cartItems[i].product.price,
-                quantity: products.cartItems[i].quantity,
-                productName: products.cartItems[i].product.name,
-                productId: products.cartItems[i].product.id,
+                product: products.cartItems[i].product
               });
+              console.log('checkoutBodyArray getallitems', this.checkoutBodyArray);
             }
           }
         })
         .catch((err) => console.log(err));
     },
     goToCheckout() {
-      console.log('checkoutBodyArray', this.checkoutBodyArray);
-      axios
-        .post(
-          `${this.baseURL}order/create-checkout-session`,
-          this.checkoutBodyArray
-        )
-        .then(() => {
-          swal({
-                        text: "Producto agregado",
-                        icon: "success"
-                    });
-            this.$router.push({ name: 'PaymentSuccess' });
-        })
-        .catch((err) => console.log(err));
-        
-    },
+      const newOrder = {
+        productList: this.checkoutBodyArray
+      }
+
+      console.log("token: ",this.token);
+      console.log('checkoutBodyArray goto', newOrder);
+
+        axios
+          .post(
+            `${this.baseURL}order/add/?token=${this.token}`,
+            newOrder
+          )
+          .then(() => {
+            swal({
+              text: "Orden agregada",
+              icon: "success",
+            })
+            //this.$router.push({ name: 'PaymentSuccess' });
+          })
+          .catch((err) => console.log(err));
+      }
   },
   mounted() {
     this.token = localStorage.getItem('token');
     this.getAllItems();
+
   },
 };
 </script>
